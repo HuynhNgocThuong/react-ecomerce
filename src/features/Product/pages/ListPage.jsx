@@ -1,9 +1,10 @@
 import { Box, Container, Grid, makeStyles, Paper } from '@material-ui/core';
+import { Pagination } from '@material-ui/lab';
 import productApi from 'api/productApi';
 import React, { useEffect, useState } from 'react';
-import ProductSkeletonList from '../components/ProductSkeletonList';
+import ProductFilters from '../components/ProductFilters';
 import ProductList from '../components/ProductList';
-import { Pagination } from '@material-ui/lab';
+import ProductSkeletonList from '../components/ProductSkeletonList';
 import ProductSort from '../components/ProductSort';
 
 ListPage.propTypes = {
@@ -44,7 +45,7 @@ function ListPage(props) {
                 const { data, pagination } = await productApi.getAll(filters);
                 setProductList(data);
                 setPagination(pagination);
-                console.log(data, pagination);
+                // console.log(data, pagination);
             }
             catch(error){
                 console.log('Failed to fetch product list', error);
@@ -64,12 +65,22 @@ function ListPage(props) {
             _sort: newSortValue,
         }))
     }
+
+    const handleFiltersChange = (newFilters) => {
+        setFilters(prevFilters => ({
+            // Get previous filtered and add new filter
+            ...prevFilters,
+            ...newFilters,
+        }));
+    }
     return (
         <Box>
             <Container>
                 <Grid container spacing={1} >
                     <Grid item className={classes.left}>
-                        <Paper elevation={0}>Left container</Paper>
+                        <Paper elevation={0}>
+                            <ProductFilters filters={filters} onChange={handleFiltersChange}/>
+                        </Paper>
                     </Grid>
                     <Grid item className={classes.right}>
                         <ProductSort currentSort={filters._sort} onChange={handleSortchange}></ProductSort>
