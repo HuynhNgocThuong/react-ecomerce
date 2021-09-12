@@ -3,12 +3,22 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter, Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from 'app/store';
+import { SnackbarProvider } from 'notistack';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  <Provider store={store}>
+    <React.StrictMode>
+      <BrowserRouter>
+      <SnackbarProvider anchorOrigin={{vertical:'top', horizontal:'right'}}>
+        <App />
+      </SnackbarProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  </Provider>,
+    document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

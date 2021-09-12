@@ -1,23 +1,21 @@
-import logo from './logo.svg';
+import { Button } from '@material-ui/core';
+import ProductFeature from 'features/Product';
+import { useSnackbar } from 'notistack';
+import { Route, Switch } from 'react-router';
 import './App.css';
-
+import Header from './components/Header'
 function App() {
+  const {enqueueSnackbar} = useSnackbar();
+  function showNoti(){
+    enqueueSnackbar('Register successfully', {variant:'success'});
+  }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+      <Button onClick={showNoti}>Show Noti</Button>
+      <Switch>
+        <Route path="/products" component={ProductFeature} />
+      </Switch>
     </div>
   );
 }
