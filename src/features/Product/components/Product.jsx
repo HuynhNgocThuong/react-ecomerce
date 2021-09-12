@@ -7,7 +7,9 @@ import React from 'react';
 Product.propTypes = {
     product: PropTypes.object,
 };
-
+/**
+    Add comment
+ */
 function Product(props) {
     const { product } = props;
     const thumbnailUrl = product.thumbnail ? `${STATIC_HOST}${product.thumbnail?.url}` : THUMNAIL_PLACEHOLDER;
